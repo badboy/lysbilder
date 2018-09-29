@@ -56,6 +56,7 @@ impl Jump for Slide{} {{
 
 fn main() -> Result<(), Box<std::error::Error + 'static>> {
     let cwd = env::current_dir()?;
+    let cratename = env::var("CARGO_PKG_NAME").unwrap();
 
     let slides_file = cwd.join(SLIDES);
     let output_file = cwd.join("src").join("lib.rs");
@@ -87,8 +88,13 @@ fn main() -> Result<(), Box<std::error::Error + 'static>> {
 
     Command::new("rustdoc")
         .arg("--html-in-header").arg("lysbilder.html")
+        .arg("--crate-name").arg(&cratename)
         .arg("src/lib.rs")
         .status()?;
+
+    let index_file = cwd.join("doc").join("index.html");
+    let mut index = File::create(index_file)?;
+    writeln!(index, "<meta http-equiv=refresh content=0;url={}/index.html>", cratename)?;
 
     Ok(())
 }

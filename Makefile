@@ -8,7 +8,7 @@ watch:
 .PHONY: watch
 
 serve: slides
-	echo "Serverd at http://localhost:8000/lib/"
+	echo "Serverd at http://localhost:8000/"
 	cd doc && http
 .PHONY: serve
 

@@ -1,0 +1,51 @@
+<script type='text/javascript'>
+  function findNavigationUrls() {
+    let prev;
+    let next;
+
+    for (link of document.querySelectorAll("a")) { 
+      if (link.innerText == "Next") { 
+        next = link.nextElementSibling.href
+      } 
+      if (link.innerText == "Previous") { 
+        prev = link.nextElementSibling.href
+      } 
+    }
+
+    return [prev, next];
+  }
+
+  function gotoSlide(url) {
+    if (url.match(/primitive.unit.html/)) {
+      // No next slide, do nothing
+      console.log("No next slide, do nothing.");
+      return;
+    }
+
+    window.location = url;
+  }
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+    let [prev, next] = findNavigationUrls();
+    console.log({prev, next});
+
+    document.addEventListener('keyup', (event) => {
+      switch (event.keyCode) {
+        case 32: // space
+        case 39: // right-arrow
+          event.stopPropagation();
+          console.log("Next slide");
+          gotoSlide(next);
+          break;
+        case 37: // left-arrow
+          event.stopPropagation();
+          console.log("Previous slide");
+          gotoSlide(prev);
+          break;
+        default:
+          break;
+      }
+    })
+  });
+</script>

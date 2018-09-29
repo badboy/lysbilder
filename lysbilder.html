@@ -29,6 +29,9 @@
   document.addEventListener('DOMContentLoaded', () => {
     let [prev, next] = findNavigationUrls();
     console.log({prev, next});
+    if (prev == undefined || next == undefined) {
+      return;
+    }
 
     document.addEventListener('keyup', (event) => {
       switch (event.keyCode) {

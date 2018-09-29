@@ -1,13 +1,10 @@
 slides: doc/lib/index.html
 
-doc/lib/index.html: src/lib.rs
-	rustdoc --html-in-header lysbilder.html src/lib.rs
-
-src/lib.rs: slides.md
-	ruby build.rb slides.md > src/lib.rs
+doc/lib/index.html: slides.md
+	cargo build
 
 watch:
-	cargo watch -s 'make slides'
+	cargo watch -x build -i src/lib.rs
 .PHONY: watch
 
 serve: slides

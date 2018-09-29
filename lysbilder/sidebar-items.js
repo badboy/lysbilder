@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Slide1","lysbilder"],["Slide2","Who am I?"],["Slide3","This slide deck can hold so much code."],["Slide4","The End"]],"trait":[["Jump",""]]});

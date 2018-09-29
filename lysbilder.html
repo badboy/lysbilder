@@ -3,16 +3,24 @@
     let prev;
     let next;
 
-    for (link of document.querySelectorAll("a")) { 
-      if (link.innerText == "Next") { 
-        next = link.nextElementSibling.href
-      } 
-      if (link.innerText == "Previous") { 
-        prev = link.nextElementSibling.href
-      } 
+    for (link of document.querySelectorAll("a")) {
+      if (link.innerText == "Next") {
+        next = link.nextElementSibling.href;
+      }
+      if (link.innerText == "Previous") {
+        prev = link.nextElementSibling.href;
+      }
     }
 
     return [prev, next];
+  }
+
+  function findFirstSlide() {
+    for (link of document.querySelectorAll("a")) {
+      if (link.innerText == "Slide1") {
+        return link.href;
+      }
+    }
   }
 
   function gotoSlide(url) {
@@ -27,9 +35,16 @@
 
 
   document.addEventListener('DOMContentLoaded', () => {
-    let [prev, next] = findNavigationUrls();
+    let prev, next
+    if (window.location.pathname.endsWith("/index.html")) {
+      [prev, next] = ["primitive.unit.html", findFirstSlide()];
+    } else {
+      [prev, next] = findNavigationUrls();
+    }
+
     console.log({prev, next});
-    if (prev == undefined || next == undefined) {
+    if (!prev || !next) {
+      console.log("Missing URLs, bailing out.")
       return;
     }
 
